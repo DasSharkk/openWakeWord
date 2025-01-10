@@ -916,21 +916,21 @@ def generate_adversarial_texts(input_text: str, N: int, include_partial_phrase: 
         list: A list of strings corresponding to words and phrases that are phonetically similar (but not identical)
               to the input text.
     """
-    # Get phonemes for english vowels (CMUDICT labels)
-    vowel_phones = ["AA", "AE", "AH", "AO", "AW", "AX", "AXR", "AY", "EH", "ER", "EY", "IH", "IX", "IY", "OW", "OY", "UH", "UW", "UX"]
+    # Get phonemes for german vowels (CMUDICT labels)
+    vowel_phones = ["AA", "AAH", "EH", "EE", "EHX", "EHH", "IH", "IY", "OH", "OW", "UH", "UW", "YY", "YX", "OE", "OEE", "AX", "ER", "UHX", "IX"]
 
     word_phones = []
     input_text_phones = [pronouncing.phones_for_word(i) for i in input_text.split()]
 
     # Download phonemizer model for OOV words, if needed
     if [] in input_text_phones:
-        phonemizer_mdl_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "en_us_cmudict_forward.pt")
+        phonemizer_mdl_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "latin_ipa_forward.pt")
         if not os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources")):
             os.mkdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources"))
         if not os.path.exists(phonemizer_mdl_path):
             logging.warning("Downloading phonemizer model from DeepPhonemizer library...")
             import requests
-            file_url = "https://public-asai-dl-models.s3.eu-central-1.amazonaws.com/DeepPhonemizer/en_us_cmudict_forward.pt"
+            file_url = "https://public-asai-dl-models.s3.eu-central-1.amazonaws.com/DeepPhonemizer/latin_ipa_forward.pt"
             r = requests.get(file_url, stream=True)
             with open(phonemizer_mdl_path, "wb") as f:
                 for chunk in r.iter_content(chunk_size=2048):
@@ -947,7 +947,7 @@ def generate_adversarial_texts(input_text: str, N: int, include_partial_phrase: 
         elif phones == []:
             logging.warning(f"The word '{word}' was not found in the pronunciation dictionary! "
                             "Using the DeepPhonemizer library to predict the phonemes.")
-            phones = phonemizer(word, lang='en_us')
+            phones = phonemizer(word, lang='de')
             logging.warning(f"Phones for '{word}': {phones}")
             word_phones.append(re.sub(r"[\]|\[]", "", re.sub(r"\]\[", " ", phones)))
         elif isinstance(phones[0], list):
