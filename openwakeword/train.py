@@ -688,6 +688,7 @@ if __name__ == '__main__':
                              batch_size=config["tts_batch_size"],
                              noise_scales=[0.333], noise_scale_ws=[0.333], min_phoneme_count=180,
                              output_dir=positive_test_output_dir, auto_reduce_batch_size=True,
+                             file_names=[uuid.uuid4().hex + ".wav" for i in range(config["n_samples_val"])],
                              model="models/de_DE-mls-medium.pt")
             torch.cuda.empty_cache()
         else:
@@ -706,6 +707,7 @@ if __name__ == '__main__':
                     N=config["n_samples"]//len(config["target_phrase"]),
                     include_partial_phrase=1.0,
                     include_input_words=0.2))
+            adversarial_texts = ["Hey Miro", "Hey Mallo", "Hey Mahlow", "Hee Miro", "Häy Meelo", "Ey Miau", "Hey Miau", "Hey my love", "Hey mein Lob", "Hey mal los", "Ey mein Lo"]
             generate_samples(text=adversarial_texts, max_samples=config["n_samples"]-n_current_samples,
                              batch_size=config["tts_batch_size"]//7,
                              noise_scales=[0.333], noise_scale_ws=[0.333], min_phoneme_count=180,
@@ -730,10 +732,12 @@ if __name__ == '__main__':
                     N=config["n_samples_val"]//len(config["target_phrase"]),
                     include_partial_phrase=1.0,
                     include_input_words=0.2))
+            adversarial_texts = ["Hey Miro", "Hey Mallo", "Hey Mahlow", "Hee Miro", "Häy Meelo", "Ey Miau", "Hey Miau", "Hey my love", "Hey mein Lob", "Hey mal los", "Ey mein Lo"]
             generate_samples(text=adversarial_texts, max_samples=config["n_samples_val"]-n_current_samples,
                              batch_size=config["tts_batch_size"]//7,
                              noise_scales=[0.333], noise_scale_ws=[0.333], min_phoneme_count=180,
                              output_dir=negative_test_output_dir, auto_reduce_batch_size=True,
+                             file_names=[uuid.uuid4().hex + ".wav" for i in range(config["n_samples_val"])],
                              model="models/de_DE-mls-medium.pt")
             torch.cuda.empty_cache()
         else:
