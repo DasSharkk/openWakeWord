@@ -732,7 +732,32 @@ if __name__ == '__main__':
                     N=config["n_samples_val"]//len(config["target_phrase"]),
                     include_partial_phrase=1.0,
                     include_input_words=0.2))
-            adversarial_texts = ["Hey Miro", "Hey Mallo", "Hey Mahlow", "Hee Miro", "Häy Meelo", "Ey Miau", "Hey Miau", "Hey my love", "Hey mein Lob", "Hey mal los", "Ey mein Lo"]
+            adversarial_texts =  adversarials = [
+    "Hey Miro", "Hey Mylo", "Hey Lilo", "Hey Miloš", "Hey Mallo",  
+    "Hey Mahlow", "Hee Mee", "Häy Meelo", "Ey Mee-low", "Hey Mehl, oh",  
+    "Hey, wie lo?", "Hey, mal los!", "Ey, mein Lo!", "Hey mein Lob!",  
+    "Hey, my love", "Hey, wie laut?", "Hey, mein Los!", "Ey, my low",  
+    "Hey Malu", "Hey Nilo", "Hey Melo", "Hey Malo", "Hey Mito",  
+    "Hey Meelo", "Hey Maelo", "Hey Meelow", "Hey Mielow",  
+    "Hey, my low", "Hey, mai lo", "Hey Mailo", "Hey Meilo", "Hey Maylo",  
+    "Hey Melo!", "Hey Meelu", "Hey Mee-Low", "Hey, mein Lot",  
+    "Hey, wie logisch", "Hey, mir los", "Hey, Milou",  
+    "Hey, Mi Lou", "Hey, mee low", "Hey Mallo!", "Hey, Mylow",  
+    "Hey, Mehlow", "Hey, Maylow", "Hey, Mhylo", "Hey, MeeLo",  
+    "Hey, Millo", "Hey, Malow", "Hey, Mihlow",  
+    "Hey, Mahlo", "Hey, Maello", "Hey, Mylou", "Hey, Mee Lou",  
+    "Hey, Meelo", "Hey, Meehlo",
+    "Hey, Mi-Lou", "Hey, Millou",  
+    "Hey, Meeh-low", "Hey, Mih-low", "Hey, Mael-low", "Hey, Meil-oh",  
+    "Hey, Meel-low", "Hey, Mih-loww", "Hey, Mee-loww", "Hey, Mehl-ow",  
+    "Hey, Mih-lou", "Hey, Meelou", "Hey, Meeh-loww", "Hey, Mee-loh",  
+    "Hey, Mihlou", "Hey, Mihlo", "Hey, Mih-low!",  
+    "Hey, Mihloww!", "Hey, Mihlou!", "Hey, Mih-lou!",  
+    "Hey, Mih-Low!", "Hey, Mihl-oh", "Hey, Mihlow!", "Hey, Mihloh!",  
+    "Hey, Mihl-ow!", "Hey, Mih-low!", "Hey, Mihlouh!", "Hey, Mee-lo!",  
+    "Hey, Mee-Lou!", "Hey, Mee-low!", "Hey, Meeh-loh!", "Hey, Mee-lou!", 
+    "Hey, Meeh-low!", "Hey, Meehlow!", "Hey, Meehlo!", "Hey, Meeh-loww!"
+]
             generate_samples(text=adversarial_texts, max_samples=config["n_samples_val"]-n_current_samples,
                              batch_size=config["tts_batch_size"]//7,
                              noise_scales=[0.333], noise_scale_ws=[0.333], min_phoneme_count=180,
